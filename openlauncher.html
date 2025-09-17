@@ -192,7 +192,7 @@
     <div class="launcher-container">
         <header>
             <h1>Open <span class="highlight">Launcher</span></h1>
-            <p>Votre solution ultime pour gérer, lancer et organiser vos jeux et applications préférés avec style et rapidité.</p>
+            <p>Votre solution ultime pour installer et lancer vos jeux et applications préférés avec style et rapidité.</p>
         </header>
 
         <div class="buttons">
@@ -205,32 +205,32 @@
             <div class="features">
                 <div class="feature-card">
                     <h3>Lancement rapide</h3>
-                    <p>Lancez vos applications et jeux en un seul clic, sans perte de temps.</p>
+                    <p>Lancez vos applications et jeux en un seul clic, sans perte de temps, rien en arriere plan, aucun overlay invasif</p>
                 </div>
                 <div class="feature-card">
                     <h3>Gestion centralisée</h3>
-                    <p>Organisez tous vos logiciels dans un seul endroit clair et intuitif.</p>
+                    <p>Organisez tous vos jeux dans un seul endroit clair et intuitif.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>Mises à jour automatiques</h3>
-                    <p>Gardez vos applications à jour sans effort grâce aux notifications intégrées.</p>
+                    <h3>Jeux OpenSource</h3>
+                    <p>Seul des jeux open source / gratuis sont disponible, la communauté fait vivre le launcher!</p>
                 </div>
                 <div class="feature-card">
                     <h3>Thème personnalisable</h3>
-                    <p>Choisissez parmi plusieurs thèmes et couleurs pour une interface à votre goût.</p>
+                    <p>Choisissez parmi plusieurs thèmes et couleurs pour une interface à votre goût. (Indev)</p>
                 </div>
             </div>
         </section>
 
         <section>
             <h2>Comment ça marche ?</h2>
-            <p>Open Launcher se connecte directement à vos installations existantes et vous permet de créer un tableau de bord central. Vous pouvez ajouter, supprimer et organiser vos applications, créer des raccourcis, et même programmer des mises à jour automatiques.</p>
+            <p>Open Launcher vous permet de télécharger vos jeux simplement via le store et de les lancer depuis la librairie,</p>
             <p>Grâce à l'interface intuitive, vous n'avez plus besoin de chercher vos jeux ou logiciels dans différents dossiers ou menus : tout est à portée de main.</p>
         </section>
 
         <section>
             <h2>Télécharger & Installer</h2>
-            <p>Pour installer Open Launcher, téléchargez le programme depuis notre site officiel, puis suivez les instructions simples à l'écran. Une fois installé, vous pourrez commencer à ajouter vos applications et profiter de toutes les fonctionnalités immédiatement.</p>
+            <p>Pour installer Open Launcher, téléchargez le programme d'installation, puis suivez les instructions simples à l'écran. Une fois installé, vous pourrez commencer installer vos jeux et profiter de toutes les fonctionnalités immédiatement et gratuitement.</p>
             <div class="buttons">
                 <a href="#" class="btn btn-launch">Télécharger maintenant</a>
             </div>
@@ -248,8 +248,15 @@
         const infoBtn = document.getElementById('infoBtn');
 
         launchBtn.addEventListener('click', () => {
-            alert("Open Launcher est en cours de lancement !");
-        });
+    // Crée un élément <a> temporaire
+    const link = document.createElement('a');
+    link.href = "https://bowser-2077.github.io/OpenLauncherInstaller.exe";
+    link.download = "OpenLauncherInstaller.exe"; // Nom du fichier
+    document.body.appendChild(link);
+    link.click(); // Simule le clic pour télécharger
+    document.body.removeChild(link); // Supprime le lien après téléchargement
+    alert("Merci d'avoir téléchargé Open Launcher!");
+});
 
         infoBtn.addEventListener('click', () => {
             alert("Open Launcher est votre hub centralisé pour tous vos jeux et applications. Simple, rapide et personnalisable !");
