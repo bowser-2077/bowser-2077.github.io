@@ -4,15 +4,21 @@
   <meta charset="UTF-8">
   <title>Open Launcher</title>
   <style>
+    /* Base */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #171a21;
       color: #c7d5e0;
+      overflow-x: hidden;
     }
+    h1,h2,h3 { color: #fff; margin: 0; }
+    p { margin: 0; }
+
+    /* Navigation */
     nav {
       position: fixed;
-      top: 0;
+      top: 0; left: 0;
       width: 100%;
       background: #171a21;
       border-bottom: 1px solid #2a475e;
@@ -33,9 +39,9 @@
       text-decoration: none;
       transition: 0.3s;
     }
-    nav a:hover {
-      color: #ffffff;
-    }
+    nav a:hover { color: #fff; }
+
+    /* Header */
     header {
       text-align: center;
       padding: 160px 20px 100px;
@@ -43,29 +49,38 @@
     }
     header h1 {
       font-size: 56px;
-      color: #ffffff;
       margin-bottom: 20px;
+      animation: fadeSlide 1.2s ease;
     }
     header p {
       font-size: 20px;
       max-width: 700px;
       margin: auto;
       color: #c7d5e0;
+      animation: fadeSlide 1.5s ease;
     }
+
+    /* Buttons */
     .btn {
       display: inline-block;
-      background: #66c0f4;
+      background: linear-gradient(90deg, #66c0f4, #549abf);
       color: #171a21;
       padding: 14px 28px;
       border-radius: 4px;
       margin-top: 30px;
       font-size: 18px;
       text-decoration: none;
-      transition: 0.3s;
+      font-weight: bold;
+      transition: background 1s, transform 0.3s, box-shadow 0.3s;
+      background-size: 200% 200%;
+      animation: gradientFlow 5s infinite alternate;
     }
     .btn:hover {
-      background: #549abf;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #66c0f4;
     }
+
+    /* Sections */
     section {
       padding: 80px 40px;
       max-width: 1200px;
@@ -73,10 +88,14 @@
     }
     h2 {
       font-size: 36px;
-      color: #ffffff;
       text-align: center;
       margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
     }
+
+    /* Grid & Cards */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -87,29 +106,51 @@
       border: 1px solid #2a475e;
       border-radius: 6px;
       overflow: hidden;
-      transition: 0.3s;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: transform 1s ease, opacity 1s ease, border-color 0.3s;
     }
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-5px) scale(1.02);
       border-color: #66c0f4;
     }
     .card img {
       width: 100%;
       display: block;
+      transition: transform 0.5s ease;
+    }
+    .card:hover img {
+      transform: scale(1.1);
     }
     .card-content {
       padding: 20px;
     }
     .card-content h3 {
       margin: 0 0 10px;
-      color: #ffffff;
+      color: #fff;
     }
+
+    /* Footer */
     footer {
       background: #171a21;
       border-top: 1px solid #2a475e;
       text-align: center;
       padding: 30px;
       color: #c7d5e0;
+    }
+
+    /* Animations */
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientFlow {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+    .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
   </style>
 </head>
@@ -198,5 +239,18 @@
   <footer>
     <p>&copy; 2024 Open Launcher. Free and open source gaming for everyone.</p>
   </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll("h2, .card").forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
