@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=https://www.dropbox.com/s/TON_FICHIER?dl=1">
+    <title>Téléchargement en cours...</title>
+    <style>
+    /* Base */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #171a21;
+      color: #c7d5e0;
+      overflow-x: hidden;
+      text-align: center;
+    }
+    h1,h2,h3 { color: #fff; margin: 0; }
+    p { margin: 0; }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: #171a21;
+      border-bottom: 1px solid #2a475e;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    nav .logo {
+      color: #66c0f4;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    nav a {
+      color: #c7d5e0;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #fff; }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 200px 20px 100px;
+      background: linear-gradient(180deg, #1b2838, #171a21);
+    }
+    header h1 {
+      font-size: 56px;
+      margin-bottom: 20px;
+      animation: fadeSlide 1.2s ease;
+    }
+    header p {
+      font-size: 20px;
+      max-width: 700px;
+      margin: auto;
+      color: #c7d5e0;
+      animation: fadeSlide 1.5s ease;
+    }
+
+    /* Bouton */
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #66c0f4, #549abf);
+      color: #171a21;
+      padding: 14px 28px;
+      border-radius: 4px;
+      margin-top: 30px;
+      font-size: 18px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 1s, transform 0.3s, box-shadow 0.3s;
+      background-size: 200% 200%;
+      animation: gradientFlow 5s infinite alternate;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #66c0f4;
+    }
+
+    /* Animations */
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientFlow {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Open Launcher</div>
+        <div>
+          <a href="#features">Fonctionnalités</a>
+          <a href="#games">Jeux</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Téléchargement en cours...</h1>
+        <p>Votre fichier va se télécharger automatiquement. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.</p>
+        <a class="btn" href="https://www.dropbox.com/s/TON_FICHIER?dl=1">Télécharger maintenant</a>
+    </header>
+</body>
+</html>
