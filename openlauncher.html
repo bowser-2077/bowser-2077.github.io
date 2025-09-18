@@ -1,275 +1,202 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Launcher</title>
-    <style>
-        /* Reset et typographie */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Container principal */
-        .launcher-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            font-size: 4em;
-            color: #ffcc00;
-            text-shadow: 2px 2px 10px #000;
-            margin-bottom: 10px;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        header p {
-            font-size: 1.3em;
-            color: #ddd;
-            line-height: 1.6;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        /* Boutons */
-        .buttons {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 35px;
-            margin: 10px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #fff;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-launch {
-            background: linear-gradient(45deg, #ff6a00, #ee0979);
-            box-shadow: 0 0 10px #ee0979;
-        }
-
-        .btn-launch:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px #ff6a00;
-        }
-
-        .btn-info {
-            background: linear-gradient(45deg, #2193b0, #6dd5ed);
-            box-shadow: 0 0 10px #6dd5ed;
-        }
-
-        .btn-info:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px #2193b0;
-        }
-
-        /* Sections */
-        section {
-            margin-bottom: 80px;
-            padding: 30px 20px;
-            background: rgba(0,0,0,0.6);
-            border-radius: 20px;
-            animation: fadeIn 1s ease-out;
-        }
-
-        section h2 {
-            font-size: 2.5em;
-            color: #ffcc00;
-            margin-bottom: 20px;
-        }
-
-        section p {
-            font-size: 1.1em;
-            color: #ddd;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        /* Cards de fonctionnalités */
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-
-        .feature-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 10px;
-            width: 250px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(255,255,0,0.4);
-        }
-
-        .feature-card h3 {
-            color: #ffcc00;
-            margin-bottom: 10px;
-        }
-
-        .feature-card p {
-            font-size: 0.95em;
-            color: #ccc;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #aaa;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        footer a {
-            color: #ffcc00;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        @keyframes fadeInDown {
-            from {opacity: 0; transform: translateY(-30px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
-        @keyframes fadeInUp {
-            from {opacity: 0; transform: translateY(30px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
-        /* Animation highlight */
-        .highlight {
-            color: #ffcc00;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {text-shadow: 0 0 5px #ffcc00;}
-            50% {text-shadow: 0 0 20px #ffcc00;}
-            100% {text-shadow: 0 0 5px #ffcc00;}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Open Launcher</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #171a21;
+      color: #c7d5e0;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #171a21;
+      border-bottom: 1px solid #2a475e;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    nav .logo {
+      color: #66c0f4;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    nav a {
+      color: #c7d5e0;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #ffffff;
+    }
+    header {
+      text-align: center;
+      padding: 160px 20px 100px;
+      background: linear-gradient(180deg, #1b2838, #171a21);
+    }
+    header h1 {
+      font-size: 56px;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+    header p {
+      font-size: 20px;
+      max-width: 700px;
+      margin: auto;
+      color: #c7d5e0;
+    }
+    .btn {
+      display: inline-block;
+      background: #66c0f4;
+      color: #171a21;
+      padding: 14px 28px;
+      border-radius: 4px;
+      margin-top: 30px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #549abf;
+    }
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 36px;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: #1b2838;
+      border: 1px solid #2a475e;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #66c0f4;
+    }
+    .card img {
+      width: 100%;
+      display: block;
+    }
+    .card-content {
+      padding: 20px;
+    }
+    .card-content h3 {
+      margin: 0 0 10px;
+      color: #ffffff;
+    }
+    footer {
+      background: #171a21;
+      border-top: 1px solid #2a475e;
+      text-align: center;
+      padding: 30px;
+      color: #c7d5e0;
+    }
+  </style>
 </head>
 <body>
-    <div class="launcher-container">
-        <header>
-            <h1>Open <span class="highlight">Launcher</span></h1>
-            <p>Votre solution ultime pour installer et lancer vos jeux et applications préférés avec style et rapidité.</p>
-        </header>
-
-        <div class="buttons">
-            <a href="#" class="btn btn-launch" id="launchBtn">Lancer Open Launcher</a>
-            <a href="#" class="btn btn-info" id="infoBtn">En savoir plus</a>
-        </div>
-
-        <section>
-            <h2>Fonctionnalités principales</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <h3>Lancement rapide</h3>
-                    <p>Lancez vos applications et jeux en un seul clic, sans perte de temps, rien en arriere plan, aucun overlay invasif</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Gestion centralisée</h3>
-                    <p>Organisez tous vos jeux dans un seul endroit clair et intuitif.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Jeux OpenSource</h3>
-                    <p>Seul des jeux open source / gratuis sont disponible, la communauté fait vivre le launcher!</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Thème personnalisable</h3>
-                    <p>Choisissez parmi plusieurs thèmes et couleurs pour une interface à votre goût. (Indev)</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Comment ça marche ?</h2>
-            <p>Open Launcher vous permet de télécharger vos jeux simplement via le store et de les lancer depuis la librairie,</p>
-            <p>Grâce à l'interface intuitive, vous n'avez plus besoin de chercher vos jeux ou logiciels dans différents dossiers ou menus : tout est à portée de main.</p>
-        </section>
-
-        <section>
-            <h2>Télécharger & Installer</h2>
-            <p>Pour installer Open Launcher, téléchargez le programme d'installation, puis suivez les instructions simples à l'écran. Une fois installé, vous pourrez commencer installer vos jeux et profiter de toutes les fonctionnalités immédiatement et gratuitement.</p>
-            <div class="buttons">
-                <a href="#" class="btn btn-launch">Télécharger maintenant</a>
-            </div>
-        </section>
-
-        <footer>
-            &copy; 2025 Open Launcher - Tous droits réservés. 
-            <br>
-            <a href="#">Politique de confidentialité</a> | <a href="#">Contact</a>
-        </footer>
+  <nav>
+    <div class="logo">Open Launcher</div>
+    <div>
+      <a href="#features">Features</a>
+      <a href="#games">Games</a>
+      <a href="#community">Community</a>
     </div>
+  </nav>
 
-    <script>
-        const launchBtn = document.getElementById('launchBtn');
-        const infoBtn = document.getElementById('infoBtn');
+  <header>
+    <h1>Gaming Without Limits</h1>
+    <p>Discover amazing open source games, support indie developers, and join a community that believes in free, accessible gaming for everyone.</p>
+    <a href="#" class="btn">Download Open Launcher</a>
+  </header>
 
-        launchBtn.addEventListener('click', () => {
-    // Crée un élément <a> temporaire
-    const link = document.createElement('a');
-    link.href = "https://bowser-2077.github.io/OpenLauncherInstaller.exe";
-    link.download = "OpenLauncherInstaller.exe"; // Nom du fichier
-    document.body.appendChild(link);
-    link.click(); // Simule le clic pour télécharger
-    document.body.removeChild(link); // Supprime le lien après téléchargement
-    alert("Merci d'avoir téléchargé Open Launcher!");
-});
+  <section id="features">
+    <h2>Why Choose Open Launcher?</h2>
+    <div class="grid">
+      <div class="card"><div class="card-content">
+        <h3>100% Open Source</h3>
+        <p>Every game is free and open source - transparency you can trust.</p>
+      </div></div>
+      <div class="card"><div class="card-content">
+        <h3>No DRM</h3>
+        <p>Play without restrictions. Own what you download, forever.</p>
+      </div></div>
+      <div class="card"><div class="card-content">
+        <h3>Community Driven</h3>
+        <p>Built by gamers, for gamers. Join a community that values freedom.</p>
+      </div></div>
+      <div class="card"><div class="card-content">
+        <h3>Always Free</h3>
+        <p>No hidden costs or subscriptions. Gaming for everyone.</p>
+      </div></div>
+    </div>
+  </section>
 
-        infoBtn.addEventListener('click', () => {
-            alert("Open Launcher est votre hub centralisé pour tous vos jeux et applications. Simple, rapide et personnalisable !");
-        });
+  <section id="games">
+    <h2>Featured Games</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop" alt="Battle for Wesnoth">
+        <div class="card-content">
+          <h3>Battle for Wesnoth</h3>
+          <p>Strategy • 12K+ Players</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=225&fit=crop" alt="0 A.D.">
+        <div class="card-content">
+          <h3>0 A.D.</h3>
+          <p>RTS • 8K+ Players</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?w=400&h=225&fit=crop" alt="SuperTuxKart">
+        <div class="card-content">
+          <h3>SuperTuxKart</h3>
+          <p>Racing • 15K+ Players</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=225&fit=crop" alt="Minetest">
+        <div class="card-content">
+          <h3>Minetest</h3>
+          <p>Sandbox • 25K+ Players</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Animation de texte automatique
-        const highlight = document.querySelector('.highlight');
-        let colors = ['#ffcc00', '#ff6600', '#ff0099', '#00ffff', '#00ff00'];
-        let index = 0;
-        setInterval(() => {
-            highlight.style.color = colors[index];
-            index = (index + 1) % colors.length;
-        }, 2000);
-    </script>
+  <section id="community">
+    <h2>Join the Revolution</h2>
+    <p style="text-align:center; max-width:700px; margin:auto;">
+      Be part of a movement that's changing gaming. Free, open, and community-driven.
+    </p>
+    <div style="text-align:center; margin-top:40px;">
+      <a href="#" class="btn">Get Started Today</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Open Launcher. Free and open source gaming for everyone.</p>
+  </footer>
 </body>
 </html>
