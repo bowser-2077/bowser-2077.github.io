@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#1e1e1e; color:white; display:flex; flex-direction:column; height:100vh; }
+    #messages { flex:1; overflow-y:auto; padding:10px; }
+    .msg { margin:5px 0; padding:8px 12px; border-radius:10px; max-width:70%; }
+    .me { background:#0078ff; margin-left:auto; }
+    .other { background:#333; margin-right:auto; }
+    #form { display:flex; padding:10px; background:#222; }
+    #input { flex:1; padding:10px; border:none; border-radius:5px; }
+    button { margin-left:10px; padding:10px 15px; border:none; background:#0078ff; color:white; border-radius:5px; cursor:pointer; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="messages"></div>
+  <form id="form">
+    <input id="input" autocomplete="off" placeholder="Écris un message..." />
+    <button>Envoyer</button>
+  </form>
+
+  <script>
+    // ⚡ Remplace par tes vraies valeurs
+    const SUPABASE_URL = "https://dgxgwyibydcpgqqirmwy.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRneGd3eWlieWRjcGdxcWlybXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyODMyNDQsImV4cCI6MjA3Mzg1OTI0NH0.ljbAwco1qUrD7NAz_mH5dSyAOJJMnIEoLGV4Dy6MVaQ"; 
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const messagesDiv = document.getElementById('messages');
+    const input = document.getElementById('input');
+    const form = document.getElementById('form');
+
+    // Charger les anciens messages
+    async function loadMessages() {
+      let { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
+      if (data) {
+        messagesDiv.innerHTML = '';
+        data.forEach(m => addMessage(m.content, "other"));
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+    }
+
+    // Ajouter un message à l'UI
+    function addMessage(text, cls) {
+      let div = document.createElement('div');
+      div.textContent = text;
+      div.className = "msg " + cls;
+      messagesDiv.appendChild(div);
+    }
+
+    // Envoyer un message
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (input.value) {
+        addMessage(input.value, "me");
+        await supabase.from('messages').insert([{ content: input.value }]);
+        input.value = '';
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+    });
+
+    // Abonnement en temps réel
+    supabase
+      .channel('chat-room')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+        addMessage(payload.new.content, "other");
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      })
+      .subscribe();
+
+    loadMessages();
+  </script>
+</body>
+</html>
