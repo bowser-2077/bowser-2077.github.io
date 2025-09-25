@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Création de Sites Web</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      background: #f9fafc;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section-title h2 {
+      font-size: 2rem;
+      color: #1e3a8a;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      margin: 0 0 15px;
+      color: #2563eb;
+    }
+    .card p {
+      font-size: 0.95rem;
+      margin: 10px 0;
+    }
+    .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1e40af;
+      margin: 15px 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #2563eb;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+    .btn:hover {
+      background: #1e40af;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .step {
+      flex: 1;
+      min-width: 250px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+    .step h3 {
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f1f5f9;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Création de Sites Web Professionnels</h1>
+    <p>Un service rapide, moderne et transparent. Vous recevez toujours le code source complet.</p>
+  </header>
+
+  <div class="container">
+    <div class="section-title">
+      <h2>Comment ça fonctionne ?</h2>
+      <p>Un processus simple en 3 étapes, pour un site livré rapidement.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <h3>1. Prise de contact</h3>
+        <p>Vous choisissez une offre et nous parlons de vos besoins (design, contenu, fonctionnalités).</p>
+      </div>
+      <div class="step">
+        <h3>2. Création du site</h3>
+        <p>Le site est développé sur mesure (HTML/CSS ou Node.js selon votre projet), design responsive et optimisé.</p>
+      </div>
+      <div class="step">
+        <h3>3. Livraison & code source</h3>
+        <p>Vous recevez le site terminé + le code source complet pour pouvoir le modifier ou l’héberger vous-même.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">
+      <h2>Nos Offres</h2>
+      <p>Choisissez le pack qui correspond à votre projet</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Pack Starter</h3>
+        <p>Site vitrine simple (1 à 3 pages)</p>
+        <p>Design responsive inclus</p>
+        <div class="price">299€</div>
+        <a href="#contact" class="btn">Prendre Contact</a>
+      </div>
+
+      <div class="card">
+        <h3>Pack Business</h3>
+        <p>Site complet (4 à 7 pages)</p>
+        <p>Formulaire de contact + SEO basique</p>
+        <div class="price">599€</div>
+        <a href="#contact" class="btn">Prendre Contact</a>
+      </div>
+
+      <div class="card">
+        <h3>Pack E-Commerce</h3>
+        <p>Boutique en ligne (jusqu'à 50 produits)</p>
+        <p>Paiement sécurisé + intégrations</p>
+        <div class="price">1 199€</div>
+        <a href="#contact" class="btn">Prendre Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="contact">
+    <div class="section-title">
+      <h2>Contactez-nous</h2>
+      <p>Parlez-nous de votre projet, nous vous répondrons rapidement</p>
+    </div>
+    <p style="text-align:center;">
+      <a href="mailto:contact@monsite.com" class="btn">Écrire un email</a>
+    </p>
+  </div>
+
+  <footer>
+    © 2025 - Votre Agence Web. Code source fourni avec chaque projet.
+  </footer>
+</body>
+</html>
