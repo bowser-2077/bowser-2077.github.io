@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Comment fonctionne l’anti-cheat</title>
+  <style>
+    /* Base */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #171a21;
+      color: #c7d5e0;
+      overflow-x: hidden;
+    }
+    h1,h2,h3 { color: #fff; margin: 0; }
+    p { margin: 0; }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: #171a21;
+      border-bottom: 1px solid #2a475e;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    nav .logo {
+      color: #66c0f4;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    nav a {
+      color: #c7d5e0;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #fff; }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 160px 20px 100px;
+      background: linear-gradient(180deg, #1b2838, #171a21);
+    }
+    header h1 {
+      font-size: 56px;
+      margin-bottom: 20px;
+      animation: fadeSlide 1.2s ease;
+    }
+    header p {
+      font-size: 20px;
+      max-width: 700px;
+      margin: auto;
+      color: #c7d5e0;
+      animation: fadeSlide 1.5s ease;
+    }
+
+    /* Boutons */
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #66c0f4, #549abf);
+      color: #171a21;
+      padding: 14px 28px;
+      border-radius: 4px;
+      margin-top: 30px;
+      font-size: 18px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 1s, transform 0.3s, box-shadow 0.3s;
+      background-size: 200% 200%;
+      animation: gradientFlow 5s infinite alternate;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #66c0f4;
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+
+    /* Grilles & Cartes */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: #1b2838;
+      border: 1px solid #2a475e;
+      border-radius: 6px;
+      overflow: hidden;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: transform 1s ease, opacity 1s ease, border-color 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: #66c0f4;
+    }
+    .card img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .card:hover img {
+      transform: scale(1.1);
+    }
+    .card-content {
+      padding: 20px;
+    }
+    .card-content h3 {
+      margin: 0 0 10px;
+      color: #fff;
+    }
+
+    /* Pied de page */
+    footer {
+      background: #171a21;
+      border-top: 1px solid #2a475e;
+      text-align: center;
+      padding: 30px;
+      color: #c7d5e0;
+    }
+
+    /* Animations */
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientFlow {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+    .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Open Launcher</div>
+    <div>
+      <a href="#process">Fonctionnement</a>
+      <a href="#protection">Protection</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </nav>
+
+  <header>
+    <h1>🔒 L’anti-cheat par Checksum</h1>
+    <p>Découvrez comment nous garantissons l’intégrité des jeux publiés grâce à un système de contrôle basé sur des <strong>empreintes numériques</strong> (checksums).</p>
+    <a href="#process" class="btn">Voir le fonctionnement</a>
+  </header>
+
+  <section id="process">
+    <h2>Étapes de Vérification</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://dummyimage.com/600x400/2a475e/ffffff&text=1.+Upload+du+jeu" alt="Upload">
+        <div class="card-content">
+          <h3>1. Publication</h3>
+          <p>Lorsqu’un développeur publie son jeu, le serveur calcule une empreinte (SHA-256) de tous les fichiers importants.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://dummyimage.com/600x400/2a475e/ffffff&text=2.+Stockage+des+hashes" alt="Hashes">
+        <div class="card-content">
+          <h3>2. Stockage</h3>
+          <p>Ces empreintes numériques sont stockées de manière sécurisée dans la base de données du launcher.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://dummyimage.com/600x400/2a475e/ffffff&text=3.+Vérification" alt="Vérification">
+        <div class="card-content">
+          <h3>3. Vérification</h3>
+          <p>À chaque lancement, le launcher recalcule les empreintes locales et les compare avec celles du serveur.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://dummyimage.com/600x400/2a475e/ffffff&text=4.+Action" alt="Action">
+        <div class="card-content">
+          <h3>4. Action</h3>
+          <p>Si une modification est détectée, le jeu est bloqué et une alerte est envoyée au serveur anti-cheat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="protection">
+    <h2>Pourquoi c’est efficace ?</h2>
+    <p style="text-align:center; max-width:800px; margin:auto;">
+      🔐 Les checksums rendent quasiment impossible la modification d’un jeu sans être détectée.  
+      Si un seul octet change dans un fichier, son empreinte numérique change totalement.  
+      Cela protège les joueurs contre les cheats, mais aussi contre les malwares injectés dans les jeux partagés.
+    </p>
+  </section>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-content">
+          <h3>Que se passe-t-il si un fichier est corrompu ?</h3>
+          <p>Le launcher proposera automatiquement de retélécharger les fichiers manquants ou modifiés.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <h3>Les checksums ralentissent-ils le jeu ?</h3>
+          <p>Non, ils ne sont calculés qu’à la publication et au lancement, pas pendant la partie.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <h3>Peut-on contourner le système ?</h3>
+          <p>Cela nécessiterait de modifier à la fois le jeu et la base de données côté serveur, ce qui est pratiquement impossible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Open Launcher – Anti-cheat par Checksum
+  </footer>
+
+  <script>
+    // Apparition des titres et cartes
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('h2, .card').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
