@@ -31,7 +31,7 @@
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 50px 20px;
+      padding: 60px 20px;
     }
 
     .section-title {
@@ -88,13 +88,14 @@
       background: #1e40af;
     }
 
-    .steps {
+    .steps, .tech-list, .faq {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
     }
-    .step {
+
+    .step, .tech, .faq-item {
       flex: 1;
       min-width: 250px;
       background: white;
@@ -103,14 +104,34 @@
       text-align: center;
       box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     }
-    .step h3 {
+    .step h3, .tech h3, .faq-item h3 {
       color: #2563eb;
       margin-bottom: 10px;
     }
 
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .testimonial {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+    .testimonial p {
+      font-style: italic;
+    }
+    .testimonial strong {
+      display: block;
+      margin-top: 10px;
+      color: #1e3a8a;
+    }
+
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       background: #f1f5f9;
       font-size: 0.9rem;
       color: #555;
@@ -125,23 +146,35 @@
 
   <div class="container">
     <div class="section-title">
-      <h2>Comment ça fonctionne ?</h2>
-      <p>Un processus simple en 3 étapes, pour un site livré rapidement.</p>
+      <h2>Pourquoi nous choisir ?</h2>
+      <p>Nous ne faisons pas seulement des sites web, nous créons des solutions sur mesure adaptées à vos besoins.</p>
     </div>
-
     <div class="steps">
       <div class="step">
-        <h3>1. Prise de contact</h3>
-        <p>Vous choisissez une offre et nous parlons de vos besoins (design, contenu, fonctionnalités).</p>
+        <h3>Rapidité</h3>
+        <p>Développement en seulement 2 à 7 jours selon le type de site.</p>
       </div>
       <div class="step">
-        <h3>2. Création du site</h3>
-        <p>Le site est développé sur mesure (HTML/CSS ou Node.js selon votre projet), design responsive et optimisé.</p>
+        <h3>Qualité</h3>
+        <p>Design responsive, code propre et optimisé pour le SEO.</p>
       </div>
       <div class="step">
-        <h3>3. Livraison & code source</h3>
-        <p>Vous recevez le site terminé + le code source complet pour pouvoir le modifier ou l’héberger vous-même.</p>
+        <h3>Transparence</h3>
+        <p>Vous recevez toujours le code source complet (HTML/CSS/JS ou Node.js).</p>
       </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">
+      <h2>Langages & Technologies</h2>
+      <p>Nous utilisons des technologies modernes, fiables et adaptées à vos projets.</p>
+    </div>
+    <div class="tech-list">
+      <div class="tech"><h3>HTML5 / CSS3</h3><p>Pour des sites modernes et responsives.</p></div>
+      <div class="tech"><h3>JavaScript</h3><p>Ajout d’animations et d’interactions dynamiques.</p></div>
+      <div class="tech"><h3>Node.js</h3><p>Pour les sites dynamiques et applications web.</p></div>
+      <div class="tech"><h3>WordPress</h3><p>Gestion facile et rapide de votre contenu.</p></div>
     </div>
   </div>
 
@@ -174,6 +207,38 @@
         <p>Paiement sécurisé + intégrations</p>
         <div class="price">1 199€</div>
         <a href="#contact" class="btn">Prendre Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">
+      <h2>FAQ</h2>
+      <p>Questions fréquentes de nos clients</p>
+    </div>
+    <div class="faq">
+      <div class="faq-item"><h3>Combien de temps pour un site ?</h3><p>Entre 2 et 7 jours selon le pack choisi.</p></div>
+      <div class="faq-item"><h3>Recevrai-je le code source ?</h3><p>Oui, toujours (HTML/CSS/JS ou Node.js selon votre projet).</p></div>
+      <div class="faq-item"><h3>Le site sera-t-il compatible mobile ?</h3><p>Oui, tous nos sites sont 100% responsives.</p></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">
+      <h2>Avis Clients</h2>
+    </div>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>“Mon site a été livré en 3 jours, design moderne et facile à gérer. Merci !”</p>
+        <strong>— Julie, photographe</strong>
+      </div>
+      <div class="testimonial">
+        <p>“Excellente communication et code source fourni, je recommande fortement.”</p>
+        <strong>— Karim, entrepreneur</strong>
+      </div>
+      <div class="testimonial">
+        <p>“Un site e-commerce prêt à vendre en une semaine, vraiment top !”</p>
+        <strong>— Sophie, boutique en ligne</strong>
       </div>
     </div>
   </div>
