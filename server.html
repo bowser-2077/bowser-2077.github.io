@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwark SMP - Le serveur survie unique de la communauté</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --accent: #92fe9d;
+            --dark: #0a1929;
+            --darker: #061220;
+            --light: #e0f7ff;
+            --text: #c3e6ff;
+            --text-secondary: #8bb4d6;
+            --glass: rgba(16, 42, 67, 0.7);
+            --glass-border: rgba(0, 210, 255, 0.2);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --neon-glow: 0 0 15px rgba(0, 210, 255, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #0c1e32 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 15s infinite linear;
+            box-shadow: var(--neon-glow);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header avec animation */
+        header {
+            text-align: center;
+            padding: 80px 0 60px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--glass) 0%, rgba(0, 0, 0, 0.4) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            z-index: -1;
+        }
+
+        .server-status {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+            box-shadow: var(--neon-glow);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+            letter-spacing: -1px;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.7)); }
+            to { filter: drop-shadow(0 0 30px rgba(146, 254, 157, 0.7)); }
+        }
+
+        .subtitle {
+            font-size: 1.4em;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .nav-button:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Main content sections */
+        .content-section {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: var(--neon-glow);
+        }
+
+        .section-icon {
+            font-size: 1.2em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Server description */
+        .server-description {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .feature-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+            animation: float-icon 3s ease-in-out infinite;
+        }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-title {
+            color: var(--primary);
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Rules section */
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .rule-category {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .rule-category:hover {
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .rule-category h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rules-list li:hover {
+            background: rgba(0, 0, 0, 0.4);
+            transform: translateX(5px);
+        }
+
+        .rules-list li::before {
+            content: "▸";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Interactive elements */
+        .interactive-demo {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .demo-button {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .demo-button:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        .demo-content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Player stats section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            animation: countUp 2s ease-out;
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Timeline section */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            width: 45%;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 55%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 30px;
+            box-shadow: var(--neon-glow);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -60px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -60px;
+        }
+
+        /* FAQ section */
+        .faq-item {
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 300px;
+        }
+
+        .faq-toggle {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* CTA section */
+        .cta-section {
+            text-align: center;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.1) 0%, rgba(58, 123, 213, 0.1) 100%);
+            border-radius: 25px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.1) 0%, transparent 70%);
+            animation: pulse-bg 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .cta-title {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: var(--neon-glow);
+        }
+
+        .cta-text {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            color: var(--text);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            margin-top: 40px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .content-section { padding: 30px; }
+            .timeline::before { left: 20px; }
+            .timeline-item { width: calc(100% - 60px); margin-left: 60px !important; }
+            .timeline-item::before { left: -40px !important; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .nav-section { flex-direction: column; align-items: center; }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+      <!-- Header -->
+      <header>
+        <div class="header-bg"></div>
+        <div class="server-status">🟢 SERVEUR EN LIGNE</div>
+        <h1>Qwark SMP</h1>
+        <p class="subtitle">Le serveur survie unique de la communauté ! L'aventure Minecraft ultime vous attend</p>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="nav-section animate-on-scroll">
+        <a href="#presentation" class="nav-button">Présentation</a>
+        <a href="#regles" class="nav-button">Règles</a>
+        <a href="#fonctionnalites" class="nav-button">Fonctionnalités</a>
+        <a href="#communaute" class="nav-button">Communauté</a>
+        <a href="#faq" class="nav-button">FAQ</a>
+        <a href="#rejoindre" class="nav-button">Rejoindre</a>
+      </nav>
+
+      <!-- Présentation -->
+      <section id="presentation" class="content-section animate-on-scroll">
+        <h2 class="section-title">
+          <span class="section-icon">🎮</span>
+          Bienvenue sur Qwark SMP
+        </h2>
+        <div class="server-description">
+          <p>Plongez dans l'expérience Minecraft survival ultime avec Qwark SMP, le serveur qui redéfinit l'aventure en mode survie. Pas de pay-to-win, pas de claims abusifs, juste du pur fair-play et des règles claires pour garantir un équilibre parfait entre exploration, PvP et construction.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-icon">⚔️</span>
+            <h3 class="feature-title">Survie Compétitive</h3>
+            <p class="feature-description">Un vrai monde survie où chaque action compte. Pas de raccourcis, juste votre talent et votre détermination pour prospérer.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🏗️</span>
+            <h3 class="feature-title">Construction Libre</h3>
+            <p class="feature-description">Créez des bases visibles et impressionnantes qui marqueront le paysage et l'histoire du serveur.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🤝</span>
+            <h3 class="feature-title">Fair-Play Garanti</h3>
+            <p class="feature-description">Des règles équitables pour tous les joueurs, assurant une expérience équilibrée et agréable pour chacun.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🌟</span>
+            <h3 class="feature-title">Communauté Active</h3>
+            <p class="feature-description">Rejoignez une communauté passionnée de joueurs Minecraft dédiés à créer une expérience unique.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🎯</span>
+            <h3 class="feature-title">Objectifs Clairs</h3>
+            <p class="feature-description">Des objectifs de jeu bien définis qui favorisent la compétition saine et la créativité.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🛡️</span>
+            <h3 class="feature-title">Protection Anti-Triche</h3>
+            <p class="feature-description">Des systèmes avancés pour détecter et prévenir la triche, garantissant une expérience équitable.</p>
+          </div>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Joueurs Actifs</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">99.9%</span>
+            <span class="stat-label">Uptime</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Disponibilité</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Bases Construites</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Règles détaillées -->
+      <section id="regles" class="content-section animate-on-scroll">
+        <h2 class="section-title">
+          <span class="section-icon">📋</span>
+          Règles du Serveur
+        </h2>
+        <p class="server-description">
+          Chez Qwark SMP, nous croyons en des règles simples mais strictes pour maintenir l'équilibre du jeu. Chaque règle a été pensée pour garantir une expérience équitable et agréable pour tous.
+        </p>
+
+        <div class="rules-container">
+          <div class="rule-category">
+            <h3 {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            color: var(--text-secondary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--neon-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.5);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 60px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 1.8em; }
+            .container { padding: 10px; }
+            .main-content { padding: 20px; }
+            .rules-container { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { width: calc(100% - 60px); margin-left: 60px !important; }
+            .timeline-item::before { left: -40px !important; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content fade-in">
+                <h1>Qwark SMP</h1>
+                <p class="subtitle">Le serveur survie unique de la communauté !</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Joueurs Actifs</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Disponible</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image fade-in stagger-1">
+                <div class="floating-elements">
+                    <div class="float-element">💎</div>
+                    <div class="float-element">⚔️</div>
+                    <div class="float-element">🏰</div>
+                    <div class="float-element">🗡️</div>
+                    <div class="float-element">🛡️</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Server Type Section -->
+        <section class="server-intro fade-in stagger-2">
+            <h2>🎮 Notre Concept Unique</h2>
+            <div class="server-type-card">
+                <p class="server-description">
+                    Serveur survie/factions <strong>semi-vanilla</strong> — Pas de pay-to-win, pas de claims, 
+                    juste du <span class="highlight">fair-play</span> et des règles claires pour garder un bon équilibre 
+                    entre <span class="highlight">exploration</span>, <span class="highlight">PvP</span> et <span class="highlight">construction</span> !
+                </p>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features-section fade-in stagger-3">
+            <h2>✨ Ce qui nous rend unique</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3 class="feature-title">Survie Compétitive</h3>
+                    <p class="feature-description">
+                        Un vrai monde survie où chaque action compte. Pas de protection abusives, 
+                        pas de téléportation gratuite - juste vous, vos compétences et le monde.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h3 class="feature-title">Construction Libre</h3>
+                    <p class="feature-description">
+                        Créez vos bases visibles et impressionnantes. Chaque construction doit être 
+                        un chef-d'œuvre qui peut être admiré depuis le sol.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3 class="feature-title">Fair-Play Garanti</h3>
+                    <p class="feature-description">
+                        Des règles équitables pour tous les joueurs. Pas de privilèges, pas de 
+                        donations qui donnent des avantages - tout le monde est égal.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌟</div>
+                    <h3 class="feature-title">Communauté Active</h3>
+                    <p class="feature-description">
+                        Rejoignez une communauté passionnée de plus de 150 joueurs actifs, 
+                        avec des events réguliers et une ambiance conviviale.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3 class="feature-title">Économie Équilibrée</h3>
+                    <p class="feature-description">
+                        Un système d'échange basé sur les diamants, sans inflation. 
+                        Chaque diamant compte et a une vraie valeur.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">Anti-Cheat Avancé</h3>
+                    <p class="feature-description">
+                        Des systèmes de détection sophistiqués pour garantir un jeu équitable. 
+                        Les tricheurs sont bannis rapidement et définitivement.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="stats-section fade-in stagger-4">
+            <h2>📊 Nos Statistiques</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">1,247</span>
+                    <span class="stat-label">Joueurs Uniques</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">156</span>
+                    <span class="stat-label">Joueurs Actifs</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">892</span>
+                    <span class="stat-label">Heures de Jeu Moyenne</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">23</span>
+                    <span class="stat-label">Factions Actives</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">4.8/5</span>
+                    <span class="stat-label">Note Communauté</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Uptime</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rules Section -->
+        <section class="rules-section fade-in stagger-5">
+            <h2>📋 Règles Détaillées</h2>
+            <p class="section-intro">
+                Chez Qwark SMP, nous croyons en des règles simples mais efficaces qui garantissent une expérience de jeu équitable et amusante pour tous.
+            </p>
+            
+            <div class="rules-container">
+                <div class="rule-category">
+                    <h3>🏠 Règles de Construction</h3>
+                    <ul class="rules-list">
+                        <li>
+                            <span class="highlight">Une seule base par joueur</span>, avec un vrai build visible depuis le sol.
+                            <div class="rule-detail">Votre base doit être une construction digne de ce nom, pas juste un trou dans le sol.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Pas de skybases</span> - Toutes les constructions doivent être accessibles depuis le sol.
+                            <div class="rule-detail">Les bases aériennes sont interdites pour maintenir l'équité en PvP.</div>
+                        </li>
+                        <li>
+                            Interdiction des bases dans <span class="highlight">le Nether</span> ou <span class="highlight">l'End</span>.
+                            <div class="rule-detail">Le monde principal est votre terrain de jeu principal.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Coffres et lits visibles</span> - Pas de cachettes abusées.
+                            <div class="rule-detail">Les coffres doivent être placés de manière accessible, pas cachés dans des blocs.</div>
+                        </li>
+                        <li>
+                            Hauteur maximale de <span class="highlight">50 blocs</span> pour toute construction.
+                            <div class="rule-detail">Pour préserver l'esthétique du serveur et la performance.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="rule-category">
+                    <h3>⚔️ Règles de Factions</h3>
+                    <ul class="rules-list">
+                        <li>
+                            Les factions ne peuvent pas dépasser <span class="highlight">40% des joueurs actifs</span>.
+                            <div class="rule-detail">Pour éviter qu'une seule faction ne domine le serveur.</div>
+                        </li>
+                            <div class="rule-detail">Incluant les bases annexes et les avant-postes.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Alliance maximale de 2 factions</span> pour les events PvP.
+                            <div class="rule-detail">Pour maintenir l'équilibre lors des grandes batailles.</div>
+                        </li>
+                        <li>
+                            Pas de <span class="highlight">espionnage</span> ou de <span class="highlight">trahison</span> dans les factions.
+                            <div class="rule-detail">Le respect et l'honneur sont des valeurs fondamentales.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="rule-category">
+                    <h3>🎮 Règles de Gameplay</h3>
+                    <ul class="rules-list">
+                        <li>
+                            <span class="highlight">Pas de triche</span> sous aucune forme - X-Ray, fly hack, speed hack, etc.
+                            <div class="rule-detail">Toute triche entraîne un bannissement permanent sans appel.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Pas de grief</span> gratuit - Le PvP est autorisé, pas la destruction.
+                            <div class="rule-detail">Vous pouvez piller, mais pas détruire pour le plaisir.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Respect du roleplay</span> lors des events.
+                            <div class="rule-detail">Immergez-vous dans l'expérience lors des events spéciaux.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Pas de spam</span> ou de messages toxiques dans le chat.
+                            <div class="rule-detail">Un chat sain et agréable pour tous les joueurs.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="rule-category">
+                    <h3>💎 Règles Économiques</h3>
+                    <ul class="rules-list">
+                        <li>
+                            <span class="highlight">L'économie est basée sur les diamants</span> - Pas de monnaie virtuelle.
+                            <div class="rule-detail">Chaque diamant a une valeur réelle et tangible.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Pas de prix fixes</span> - Le marché est libre et fluctuant.
+                            <div class="rule-detail">L'offre et la demande déterminent les prix.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Les shops doivent être en jeu</span> - Pas de vente sur Discord.
+                            <div class="rule-detail">Toutes les transactions doivent passer par le jeu.</div>
+                        </li>
+                        <li>
+                            <span class="highlight">Pas de monopole</span> artificiel sur les ressources.
+                            <div class="rule-detail">Chaque joueur doit avoir accès aux ressources de base.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo Section -->
+        <section class="interactive-demo fade-in">
+            <h2>🎮 Explorez nos Fonctionnalités</h2>
+            <p>Cliquez sur les boutons ci-dessous pour découvrir nos systèmes uniques :</p>
+            
+            <div style="margin: 30px 0;">
+                <button class="demo-button" onclick="toggleDemo('economy')">💎 Système Économique</button>
+                <button class="demo-button" onclick="toggleDemo('factions')">🏰 Système de Factions</button>
+                <button class="demo-button" onclick="toggleDemo('events')">🎉 Events Spéciaux</button>
+                <button class="demo-button" onclick="toggleDemo('pvp')">⚔️ Système PvP</button>
+            </div>
+
+            <div id="economy" class="demo-content">
+                <h3>Système Économique Basé sur les Diamants</h3>
+                <p>Notre économie unique fonctionne exclusivement avec les diamants :</p>
+                <ul style="text-align: left; max-width: 600px; margin: 20px auto;">
+                    <li>✅ 1 diamant = 1 unité de base</li>
+                    <li>✅ Pas d'inflation artificielle</li>
+                    <li>✅ Marché libre et fluctuant</li>
+                    <li>✅ Shops physiques en jeu</li>
+                    <li>✅ Système d'enchères mensuelles</li>
+                </ul>
+                <p><strong>Exemple de prix moyens :</strong></p>
+                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; max-width: 400px; margin: 20px auto;">
+                    <div>🗡️ Épée en diamant : 3-5 diamants</div>
+                    <div>🏹 Arc Power V : 8-12 diamants</div>
+                    <div>💎 Pièce d'armure complète : 15-20 diamants</div>
+                    <div>🏠 Parcelle de terrain : 50-100 diamants</div>
+                </div>
+            </div>
+
+            <div id="factions" class="demo-content">
+                <h3>Système {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: var(--neon-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.5);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+
+        /* Discord section */
+        .discord-preview {
+            background: rgba(114, 137, 218, 0.1);
+            border: 2px solid #7289da;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .discord-channels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .channel-tag {
+            background: #7289da;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .channel-tag:hover {
+            transform: scale(1.1);
+            background: #5f73bc;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .subtitle { font-size: 1.1em; }
+            .rules-container { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { width: 100%; margin-left: 40px !important; }
+            .timeline-item::before { left: -30px !important; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Particle background effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float-particle 20s infinite linear;
+        }
+
+        @keyframes float-particle {
+            from {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            to {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Loading animation */
+        .loading-animation {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 210, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: var(--neon-glow);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <span style="font-size: 24px;">↑</span>
+    </div>
+
+    <div class="container">
+        <!-- Header section -->
+        <header>
+            <div class="header-content">
+                <h1 class="main-title">Qwark SMP</h1>
+                <p class="subtitle">Le serveur survie unique de la communauté !</p>
+                <div class="server-badge">
+                    <span class="status-indicator"></span>
+                    Serveur Ouvert - Rejoignez-nous !
+                </div>
+            </div>
+        </header>
